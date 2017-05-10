@@ -514,7 +514,8 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 
             // Remove files that are older than the expiration date;
             NSDate *modificationDate = resourceValues[NSURLContentModificationDateKey];
-            if ([[modificationDate laterDate:expirationDate] isEqualToDate:expirationDate]) {
+            NSDate *laterDate = [modificationDate laterDate:expirationDate];
+            if (laterDate != NULL && [laterDate isEqualToDate:expirationDate]) {
                 [urlsToDelete addObject:fileURL];
                 continue;
             }
